@@ -1,0 +1,40 @@
+<!-- map -->
+<div id="china"></div>
+
+<!-- scroll view -->
+<div class="scroll-view">
+  <div class="auto-scroll-view" #scrollView>
+    <div *ngFor="let point of dangerPoint" class="mat-info">
+      <div>
+        <img [src]="point.matThumb" class="mat-image" />
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 省市区下钻图 -->
+<div class="sub-map">
+  <v-chart #chart [forceFit]="forceFit" [height]="height" [padding]="padding" [data]="geoData">
+    <v-tooltip [showTitle]="showTitle"></v-tooltip>
+    <!-- <v-view [data]="geoData">
+      <div></div>
+    </v-view> -->
+    <v-view [data]="data">
+      <v-polygon [position]="polygonOpts.position" [label]="polygonOpts.label" [style]="polygonOpts.style" [color]="polygonOpts.color"></v-polygon>
+    </v-view>
+  </v-chart>
+</div>
+
+<!-- map control pane -->
+<div class="control-pane" [class.show-up]="hideOrShow" [class.show-down]="!hideOrShow">
+  <div class="control-flex">
+    <button class="control-button" (click)="removeShowContent('bg')">隐藏背景</button>
+    <button class="control-button" (click)="removeShowContent('road')">隐藏道路</button>
+    <button class="control-button" (click)="removeShowContent('building')">隐藏建筑物</button>
+    <button class="control-button" (click)="removeShowContent('point')">隐藏标注</button>
+    <img title="刷新数据" src="../assets/imgs/refresh.png" (click)="refresh()" class="refresh-button" />
+  </div>
+</div>
+
+<!-- move to the co location -->
+<div class="move-to-co-location" (click)="moveToCoLocation()"></div>
